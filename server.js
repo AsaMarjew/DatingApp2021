@@ -1,15 +1,18 @@
-const http = require("http");
-const host = 'localhost';
-const port = 8000;
+const express = require('express')
+const path = require('path')
+const app = express()
+const port = 3000
 
-const requestListener = function (req, res) 
-{
-    res.writeHead(200);
-    res.end("Hello World!");
-};
+app.use(express.static('static'))
 
-const server = http.createServer(requestListener);
-server.listen(port, host, () => 
-{
-    console.log(`Server is running on http://${host}:${port}`);
-});
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname + '/pages/index.html'));
+})
+
+app.get('/', function (req, res) {
+    throw new Error('404 Not Found') // Express will catch this on its own.
+  })
+
+app.listen(port, () => {
+    console.log('Server running on http://localhost:3000')
+})
