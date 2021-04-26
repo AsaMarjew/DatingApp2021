@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+
+    <main>
+        <div class="jumbotron">
+            <h1>Top matches</h1>
+            <p><%= tagline %></p>
+            <ul>
+                <% matches.forEach(function(match) { %>
+                    <li>
+                        <strong><%= match.name %></strong>,
+                        representing <%= match.breed %>, age <%= match.age %>
+                    </li>
+                    <% if (match.age > 18) { %>
+                        <p> valid!!!</p>
+                        <%} else { %>
+                        <p> Not Allowed </p>
+                        <% } %>
+                <% }); %>
+            </ul>
+        </div>
+    </main>
+
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+
+</body>
+</html>
