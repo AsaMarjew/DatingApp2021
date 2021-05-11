@@ -15,9 +15,15 @@ app.set('view engine', 'ejs');
 // index page 
 app.get('/', function(req, res) {
     var matches = [
-        { name: 'Christof & Sammy', breed: "Pug", age: 35},
-        { name: 'Evan & Tux', breed: "Golden retriever", age: 14},
-        { name: 'Rosa & Moby Dock', breed: "Berner sennen", age: 25}
+        { fullName: 'Rosa Matisse', accountName: "Moby Dick", password: "Mody-dick-is-cool", birthdate: "24/02/1995", gender: "female", 
+        placeResidence: "Amsterdam", knowledge: "Amature", about: "I like colorfull art", location: "Noord-Holland", 
+        category: "Art", goal: "Knowledge"},
+        { fullName: 'Luuk Dali', accountName: "Moby Dick", password: "Mody-dick-is-cool", birthdate: "24/02/1995", gender: "female", 
+        placeResidence: "Amsterdam", knowledge: "Amature", about: "I like colorfull art", location: "Noord-Holland", 
+        category: "Art", goal: "Knowledge"},
+        { fullName: 'Chris Darwin', accountName: "Moby Dick", password: "Mody-dick-is-cool", birthdate: "24/02/1995", gender: "female", 
+        placeResidence: "Amsterdam", knowledge: "Amature", about: "I like colorfull art", location: "Noord-Holland", 
+        category: "Art", goal: "Knowledge"}
     ];
     var tagline = "No match is complete without your bestfriend at your side.";
 

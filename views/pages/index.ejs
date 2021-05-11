@@ -10,48 +10,7 @@
     </header>
 
     <main>
-        <div>
-            <h1>Profile setup</h1>
-            <p><%= tagline %></p>
-            <ul>
-                <% matches.forEach(function(match) { %>
-                    <li>
-                        <strong><%= match.name %></strong>,
-                        representing <%= match.breed %>, age <%= match.age %>
-                    </li>
-                    <% if (match.age > 18) { %>
-                        <p> valid!!!</p>
-                        <%} else { %>
-                        <p> Not Allowed </p>
-                        <% } %>
-                <% }); %>
-            </ul>
-        </div>
-        <div>
-            <img src="pic_trulli.jpg" alt="Italian Trulli">
-
-            <form>
-                <label for="fname">Full name</label><br>
-                <input type="text" id="fname" name="fname" value="e.g. Vincent van Gogh"><br>
-
-                <label for="presidence">Gender</label><br>
-                <input type="radio" id="male" name="gender" value="male">
-                <label for="male">Male</label><br>
-                <input type="radio" id="female" name="gender" value="female">
-                <label for="female">Female</label><br>
-                <input type="radio" id="other" name="gender" value="other">
-                <label for="other">Other</label><br>
-                
-                <label for="presidence">Place of residence</label><br>
-                <input type="text" id="presidence" name="presidence" value="e.g. Amsterdam"><br>
-
-                <label for="presidence">Place of residence</label><br>
-                <input type="text" id="presidence" name="presidence" value="e.g. Amsterdam"><br><br>
-
-                <input type="submit" value="Submit">
-              </form> 
-        </div>
-
+        <%- include('../partials/register'); %>
     </main>
 
     <footer>
