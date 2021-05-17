@@ -1,3 +1,57 @@
 body {
-    background-color: red;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 20%;
+    font-family: 'raleway', sans-serif;
+    background-color: rgb(49, 52, 53);
 }
+
+#mobile {
+    width: 500px;
+    border-color: grey;
+    border-style: ridge;
+    border-radius: 15px;
+    background-color: #fffcf8;
+}
+
+.navBar ul {
+    padding: 0;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-bottom: black;
+    margin: 0;
+    border-radius: 15px 15px 0 0;
+    display: flex;
+}
+
+.navItem {
+    list-style: none;
+    padding-left: 20px;
+    padding-top: 30px;
+    padding-bottom: 20px;
+}
+
+.navBar img {
+    height: 50px;
+}
+
+.ProfileTop {
+    text-align: center;
+    padding-top: 40px;
+}
+
+.ProfileTop img {
+    height: 200px;
+    background-color: white;
+    border-radius: 50%;
+    margin-top: 20px;
+    padding-left: 25px;
+    padding-right: 25px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-bottom: 40px;
+}
+
+form {
+    text-align: center;
+}
+
