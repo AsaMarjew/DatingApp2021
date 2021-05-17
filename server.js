@@ -6,13 +6,14 @@ const path = require('path')
 const app = express()
 const port = 3000
 
+// public folder location
 app.use(express.static("public"));
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
 
 
-// index page 
+// index page with data
 app.get('/', function(req, res) {
     var matches = [
         { fullName: 'Rosa Matisse', accountName: "Moby Dick", password: "Mody-dick-is-cool", birthdate: "24/02/1995", gender: "female", 
@@ -57,10 +58,12 @@ app.get('/', (req, res) => {
 
 */
 
-app.get('/', function (req, res) {
+
+app.get('/', function () {
     throw new Error('404 Not Found') // Express will catch this on its own.
   })
 
+  // port of server
 app.listen(port, () => {
     console.log('Server running on http://localhost:3000')
 })
