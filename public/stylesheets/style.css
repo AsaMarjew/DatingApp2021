@@ -7,8 +7,9 @@ body {
     font-size: 0.8em;
 }
 
-#mobile {
+.mobile {
     width: 500px;
+    height: 100%;
     border-color: grey;
     border-style: ridge;
     border-radius: 15px;
@@ -41,6 +42,11 @@ h1 {
     font-size: 3em;
 }
 
+h2 {
+    font-family: 'Bodoni Moda', serif;
+    font-size: 2.5em;
+}
+
 .profileTop {
     text-align: center;
     padding-top: 40px;
@@ -62,7 +68,8 @@ form {
 }
 
 label {
-    font-size: 14px;
+    font-size: 12px;
+    margin-top: 5.5px;
 }
 
 
@@ -88,7 +95,7 @@ input, textarea {
     text-align: center;
 }
 
-input[type="radio"] {
+input[type="radio"], input[type="checkbox"] {
     width: auto;
 }
 
@@ -96,4 +103,64 @@ form p {
     font-size: 0.8em;
 }
 
+.labelTitel {
+    font-size: 1.5em;
+    margin-bottom: 5.5px;
+}
 
+.containerLocation, .containerCategory {
+    display: grid;
+    grid-template-columns: 30px 100px 30px 100px 30px 100px;
+    text-align: left;
+    margin-top: 18px;
+}
+
+#long {
+    grid-column-start: 2;
+    grid-column-end: 5;
+}
+
+.containerGoal {
+    margin-left: 10%;
+    display: grid;
+    grid-template-columns: 30px 150px 30px 150px;
+    text-align: left;
+    margin-top: 18px;
+}
+
+.button {
+    font-size: 1.5em;
+    color: black;
+    width: 50%;
+    height: 40px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 2px;
+    background-color: white;
+    border-color: rgb(184, 184, 184);
+}
+
+.button:hover {
+    background-color: #4996e8;
+    border: 0;
+    color: white;
+  }
+
+.resultCard {
+    margin-left: 20px;
+    background-color: white;
+    width: 460px;
+    margin-top: 55px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 10px;
+    padding-bottom: 18px;
+}
+
+.resultCard img {
+    border-radius: 10px 10px 0 0;
+    width: 460px;
+}
+
+.resultCard p {
+    padding-left: 1em;
+    font-size: 14px;
+}

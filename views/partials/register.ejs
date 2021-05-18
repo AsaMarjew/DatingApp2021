@@ -1,28 +1,33 @@
 <div>
   <div class="profileTop">
     <h1>Profile setup</h1>
+    <label for="avatar">Upload a profile picture</label>
+    <input name="avatar" type="file" accept="image/*">
     <img src="img/5e535b408becbf85d3544d99_peep-82.png">
   </div>
 
-    <form>
+    <form action="http://localhost/" method="get">
       <fieldset class="account">
-        <label for="fullName">Full name</label><br>
-        <input type="text" id="fullName" name="fullName" value="e.g. Vincent van Gogh" required><br>
+        <label class="labelTitel" for="fullName">Full name *</label><br>
+        <input type="text" id="fullName" name="fullName" required><br>
 
-        <label for="accountName">Account name</label><br>
+        <label class="labelTitel" for="accountName">Account name *</label><br>
         <p class="finePrint">This name is shown to others</p>
-        <input type="text" id="accountName" name="accountName" value="e.g. Goghy" required><br>
+        <input type="text" id="accountName" name="accountName" required><br>
 
-        <label for="password">Password</label><br>
+        <label class="labelTitel" for="email" >Email address *</label>
+        <input name="email" type="email" required>
+
+        <label class="labelTitel" for="password">Password *</label><br>
         <input type="password" id="password" name="password" minlength="4" required><br>
       </fieldset>
       
       <fieldset class="accountInfo">
-        <label for="birthdate">Birthdate</label><br>
+        <label class="labelTitel" for="birthdate">Birthdate *</label><br>
         <input class="birthdate" type="date" placeholder="YYYY-MM-DD" data-date-split-input="true" required><br>
         
         
-        <label for="gender">Gender</label><br>
+        <label class="labelTitel" for="gender">Gender</label><br>
         <input type="radio" id="male" name="gender" value="male">
         <label for="male">Male</label>
         <input type="radio" id="female" name="gender" value="female">
@@ -30,10 +35,10 @@
         <input type="radio" id="other" name="gender" value="other">
         <label for="other">Other</label><br>
         
-        <label for="placeResidence">Place of residence</label><br>
-        <input type="text" id="placeResidence" name="placeResidence" value="e.g. Amsterdam"><br>
+        <label class="labelTitel" for="placeResidence">Place of residence</label><br>
+        <input type="text" id="placeResidence" name="placeResidence"><br>
 
-        <label for="knowledge">Knowledge</label><br>
+        <label class="labelTitel" for="knowledge">Knowledge</label><br>
         <input type="radio" id="amature" name="knowledge" value="amature">
         <label for="amature">Amature</label>
         <input type="radio" id="moderate" name="knowledge" value="moderate">
@@ -41,62 +46,67 @@
         <input type="radio" id="expert" name="knowledge" value="expert">
         <label for="expert">Expert</label><br>
 
-        <label for="about">You in one sentence</label><br>
-        <textarea id="about" name="about" rows="4" cols="50"> My name is Vincent van Gogh better known as Goghy. When we meet you have to speak loudly, I lost one ear.
-        </textarea>
+        <label class="labelTitel" for="about">You in one sentence</label><br>
+        <textarea id="about" name="about" rows="4" cols="50"></textarea>
       </fieldset>
 
       <fieldset class="accountMuseum">
         <h2>Museum</h2>
-        <label for="location">Location</label><br>
+        <label class="labelTitel" for="location">Location</label><br>
+        <div class="containerLocation">
         <input type="checkbox" id="drenthe" name="location" value="drenthe">
-        <label for="drenthe">Drenthe</label><br>
+        <label for="drenthe">Drenthe</label>
         <input type="checkbox" id="flevoland" name="location" value="flevoland">
-        <label for="flevoland">Flevoland</label><br>
+        <label for="flevoland">Flevoland</label>
         <input type="checkbox" id="friesland" name="location" value="friesland">
-        <label for="friesland">Friesland</label><br>
+        <label for="friesland">Friesland</label>
         <input type="checkbox" id="gelderland" name="location" value="gelderland">
-        <label for="gelderland">Gelderland</label><br>
+        <label for="gelderland">Gelderland</label>
         <input type="checkbox" id="groningen" name="location" value="groningen">
-        <label for="groningen">Groningen</label><br>
+        <label for="groningen">Groningen</label>
         <input type="checkbox" id="limburg" name="location" value="limburg">
-        <label for="limburg">Limburg</label><br>
+        <label for="limburg">Limburg</label>
         <input type="checkbox" id="noordBrabant" name="location" value="noordBrabant">
-        <label for="noordBrabant">Noord-Brabant</label><br>
+        <label for="noordBrabant">Noord-Brabant</label>
         <input type="checkbox" id="noordHolland" name="location" value="noordHolland">
-        <label for="noordHolland">Noord-Holland</label><br>
+        <label for="noordHolland">Noord-Holland</label>
         <input type="checkbox" id="overijssel" name="location" value="overijssel">
-        <label for="overijssel">Overijssel</label><br>
+        <label for="overijssel">Overijssel</label>
         <input type="checkbox" id="utrecht" name="location" value="utrecht">
-        <label for="utrecht">Utrecht</label><br>
+        <label for="utrecht">Utrecht</label>
         <input type="checkbox" id="zeeland" name="location" value="zeeland">
-        <label for="zeeland">Zeeland</label><br>
+        <label for="zeeland">Zeeland</label>
         <input type="checkbox" id="zuidHolland" name="location" value="zuidHolland">
-        <label for="zuidHolland">Zuid-Holland</label><br>
+        <label for="zuidHolland">Zuid-Holland</label>
+        </div>
 
-        <label for="category">Category</label><br>
+        <label class="labelTitel" for="category">Category</label><br>
+        <div class="containerCategory">
         <input type="checkbox" id="art" name="category" value="art">
-        <label for="art">Art</label><br>
+        <label for="art">Art</label>
         <input type="checkbox" id="history" name="category" value="history">
-        <label for="history">History</label><br>
+        <label for="history">History</label>
         <input type="checkbox" id="naturalHistory" name="category" value="naturalHistory">
-        <label for="naturalHistory">Natural history</label><br>
+        <label for="naturalHistory">Natural history</label>
         <input type="checkbox" id="science" name="category" value="science">
-        <label for="science">Industry, science and technology</label><br>
+        <label id="long" for="science">Industry, science and technology</label>
         <input type="checkbox" id="ethography" name="category" value="ethography">
-        <label for="ethography">Ethnography</label><br>
+        <label for="ethography">Ethnography</label>
+        </div>
 
-        <label for="goal">Goal</label><br>
+        <label class="labelTitel" for="goal">Goal</label><br>
+        <div class="containerGoal">
         <input type="checkbox" id="fun" name="goal" value="fun">
-        <label for="fun">Fun</label><br>
+        <label for="fun">Fun</label>
         <input type="checkbox" id="people" name="goal" value="people">
-        <label for="people">Meeting new people</label><br>
+        <label for="people">Meeting new people</label>
         <input type="checkbox" id="knowledge" name="goal" value="knowledge">
-        <label for="knowledge">Knowledge</label><br>
+        <label for="knowledge">Knowledge</label>
         <input type="checkbox" id="romance" name="goal" value="romance">
-        <label for="romance">Romance</label><br>
+        <label for="romance">Romance</label>
+        </div>
       </fieldset>
 
-        <input type="submit" value="Submit">
+        <input href="../pages/results.ejs" class="button" type="submit" value="Submit">
     </form> 
 </div>

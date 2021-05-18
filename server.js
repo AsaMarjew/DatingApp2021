@@ -14,15 +14,15 @@ app.set('view engine', 'ejs');
 
 
 // index page with data
-app.get('/', function(req, res) {
+app.get('/index', function(req, res) {
     var matches = [
-        { fullName: 'Rosa Matisse', accountName: "Moby Dick", password: "Mody-dick-is-cool", birthdate: "24/02/1995", gender: "female", 
+        { fullName: "Rosa Matisse", accountName: "Moby Dick", password: "Moby-dick-is-cool", birthdate: "24/02/1995", gender: "female", 
         placeResidence: "Amsterdam", knowledge: "Amature", about: "I like colorfull art", location: "Noord-Holland", 
         category: "Art", goal: "Knowledge"},
-        { fullName: 'Luuk Dali', accountName: "Moby Dick", password: "Mody-dick-is-cool", birthdate: "24/02/1995", gender: "female", 
+        { fullName: 'Luuk Dali', accountName: "Moby Dick", password: "Moby-dick-is-cool", birthdate: "24/02/1995", gender: "female", 
         placeResidence: "Amsterdam", knowledge: "Amature", about: "I like colorfull art", location: "Noord-Holland", 
         category: "Art", goal: "Knowledge"},
-        { fullName: 'Chris Darwin', accountName: "Moby Dick", password: "Mody-dick-is-cool", birthdate: "24/02/1995", gender: "female", 
+        { fullName: 'Chris Darwin', accountName: "Moby Dick", password: "Moy-dick-is-cool", birthdate: "24/02/1995", gender: "female", 
         placeResidence: "Amsterdam", knowledge: "Amature", about: "I like colorfull art", location: "Noord-Holland", 
         category: "Art", goal: "Knowledge"}
     ];
@@ -37,6 +37,11 @@ app.get('/', function(req, res) {
 // about page
 app.get('/about', function(req, res) {
     res.render('pages/about');
+});
+
+// results page
+app.get('/results', function(req, res) {
+    res.render('pages/results');
 });
 
 /*// index page
@@ -59,11 +64,14 @@ app.get('/', (req, res) => {
 */
 
 
-app.get('/', function () {
-    throw new Error('404 Not Found') // Express will catch this on its own.
-  })
+// error
+app.use(function(req, res, next){
+    res.status(404);
+  // default to plain-text. send()
+    res.type('txt').send('404 NOT FOUND...');
+  });
 
-  // port of server
+// port of server
 app.listen(port, () => {
     console.log('Server running on http://localhost:3000')
 })

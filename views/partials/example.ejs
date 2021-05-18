@@ -4,7 +4,7 @@
     <ul>
         <% matches.forEach(function(match) { %>
             <li>
-                <strong><%= match.name %></strong>,
+                <strong><%= match.fullName %></strong>,
                 representing <%= match.breed %>, age <%= match.age %>
             </li>
             <% if (match.age > 18) { %>
