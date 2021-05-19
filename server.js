@@ -4,6 +4,10 @@
 const express = require('express')
 const path = require('path')
 const app = express()
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+
+app.use(bodyParser.urlencoded({extended: true}));
 const port = 3000
 
 // public folder location
@@ -12,20 +16,28 @@ app.use(express.static("public"));
 // set the view engine to ejs
 app.set('view engine', 'ejs');
 
+var matches = [
+    { fullName: "Rosa Matisse", accountName: "Moby Dick", password: "Moby-dick-is-cool", birthdate: "24/02/1995", gender: "female", 
+    placeResidence: "Amsterdam", knowledge: "Amature", about: "I like colorfull art", location: "Noord-Holland", 
+    category: "Art", goal: "Knowledge"},
+    { fullName: 'Luuk Dali', accountName: "Moby Dick", password: "Moby-dick-is-cool", birthdate: "24/02/1995", gender: "female", 
+    placeResidence: "Amsterdam", knowledge: "Amature", about: "I like colorfull art", location: "Noord-Holland", 
+    category: "Art", goal: "Knowledge"},
+    { fullName: 'Chris Darwin', accountName: "Moby Dick", password: "Moy-dick-is-cool", birthdate: "24/02/1995", gender: "female", 
+    placeResidence: "Amsterdam", knowledge: "Amature", about: "I like colorfull art", location: "Noord-Holland", 
+    category: "Art", goal: "Knowledge"}
+];
+
+app.post('/index', function(req, res) {
+    console.log(req.body);
+    matches.push(req.body);
+    console.log(matches);
+    res.render('pages/results');
+});
 
 // index page with data
 app.get('/index', function(req, res) {
-    var matches = [
-        { fullName: "Rosa Matisse", accountName: "Moby Dick", password: "Moby-dick-is-cool", birthdate: "24/02/1995", gender: "female", 
-        placeResidence: "Amsterdam", knowledge: "Amature", about: "I like colorfull art", location: "Noord-Holland", 
-        category: "Art", goal: "Knowledge"},
-        { fullName: 'Luuk Dali', accountName: "Moby Dick", password: "Moby-dick-is-cool", birthdate: "24/02/1995", gender: "female", 
-        placeResidence: "Amsterdam", knowledge: "Amature", about: "I like colorfull art", location: "Noord-Holland", 
-        category: "Art", goal: "Knowledge"},
-        { fullName: 'Chris Darwin', accountName: "Moby Dick", password: "Moy-dick-is-cool", birthdate: "24/02/1995", gender: "female", 
-        placeResidence: "Amsterdam", knowledge: "Amature", about: "I like colorfull art", location: "Noord-Holland", 
-        category: "Art", goal: "Knowledge"}
-    ];
+
     var tagline = "No match is complete without your bestfriend at your side.";
 
     res.render('pages/index', {
