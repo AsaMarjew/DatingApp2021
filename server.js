@@ -16,6 +16,9 @@ const url = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@datinga
 MongoClient.connect(url, function(err, db) {
     if (err) throw err;
     console.log("Connected to MongoDB!");
+    
+    var doc = { name: "Roshan", age: "22" };
+
     db.close();
   });
 
@@ -36,9 +39,7 @@ app.get("*", error);
 
 // Registration page render
 function pageRegistration(req, res) {
-    res.render('pages/index', {
-        matches: matches
-    });
+    res.render('pages/index');
 }
 
 // About page render
@@ -57,28 +58,33 @@ function pageResults(req, res) {
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.post('/index', function(req, res) {
-    var item = {
-        fullName: req.body.fullName,
 
-    }
-    console.log(req.body);
-    matches.push(req.body);
-    console.log(matches);
-
-    Data.push({
-        fullName: req.body.fullName
-    })
+    var item = 
+        { fullName: req.body.fullName, accountName: req.body.accountName, password: req.body.password, birthdate: req.body.birthdate, gender: req.body.gender, 
+        placeResidence: req.body.placeResidence, knowledge: req.body.knowledge, about: req.body.about, location: req.body.location, 
+        category: req.body.category, goal: req.body.goal};
+    
+        MongoClient.connect(url, function(err, db) {
+            if (err) throw err;
+            var dbo = db.db("DatingApp2021");
+            dbo.collection("customers").insertOne(item, function(err, res) {
+              if (err) throw err;
+              console.log("1 document inserted");
+            //   res.status(200).json("Mongo succes")
+              db.close();
+            });
+          });
 
     res.render('pages/profileview');
 });
 
-
+// res.status(200).json("kjbhkjhkj");
+// {res.status(400).json("stop");
 var matches = [
     { fullName: "Rosa Matisse", accountName: "Moby Dick", password: "Moby-dick-is-cool", birthdate: "24/02/1995", gender: "female", 
     placeResidence: "Amsterdam", knowledge: "Amature", about: "I like colorfull art", location: "Noord-Holland", 
     category: "Art", goal: "Knowledge"},
 ];
-
 
 
 // error page
