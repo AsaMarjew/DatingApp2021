@@ -77,7 +77,7 @@ app.post('/index', function(req, res) {
 
 // error page
 function error(req, res) {
-    res.status(404).render("404");
+    res.status(404).render('pages/404');
   };
 
 // port of server
