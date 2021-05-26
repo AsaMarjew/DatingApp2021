@@ -16,14 +16,8 @@ const url = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@datinga
 MongoClient.connect(url, function(err, db) {
     if (err) throw err;
     console.log("Connected to MongoDB!");
-    
-    var doc = { name: "Roshan", age: "22" };
-
     db.close();
   });
-
-
-
 
 // set the view engine to ejs
 app.set("view engine", "ejs");
@@ -66,8 +60,8 @@ app.post('/index', function(req, res) {
     
         MongoClient.connect(url, function(err, db) {
             if (err) throw err;
-            var dbo = db.db("DatingApp2021");
-            dbo.collection("customers").insertOne(item, function(err, res) {
+            var database = db.db("DatingApp2021");
+            database.collection("users").insertOne(item, function(err, res) {
               if (err) throw err;
               console.log("1 document inserted");
             //   res.status(200).json("Mongo succes")
@@ -80,12 +74,6 @@ app.post('/index', function(req, res) {
 
 // res.status(200).json("kjbhkjhkj");
 // {res.status(400).json("stop");
-var matches = [
-    { fullName: "Rosa Matisse", accountName: "Moby Dick", password: "Moby-dick-is-cool", birthdate: "24/02/1995", gender: "female", 
-    placeResidence: "Amsterdam", knowledge: "Amature", about: "I like colorfull art", location: "Noord-Holland", 
-    category: "Art", goal: "Knowledge"},
-];
-
 
 // error page
 function error(req, res) {
