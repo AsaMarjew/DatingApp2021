@@ -4,24 +4,128 @@
       <h1>Profile change</h1>
     </div>
 
-    
-      <!-- <form action="/profileview" method="get">
+        <form action="/profileview" method="get">
         <fieldset class="account">
-          <label class="labelTitel" for="fullName">Full name *</label><br>
-          <input type="text" id="fullName" name="fullName"><br>
-  
-          <label class="labelTitel" for="accountName">Account name *</label><br>
-          <p class="finePrint">This name is shown to others</p>
-          <input type="text" id="accountName" name="accountName"><br>
-  
-          <label class="labelTitel" for="email" >Email address *</label>
-          <input name="email" type="email">
-  
-          <label class="labelTitel" for="password">Password *</label><br>
-          <input type="password" id="password" name="password" minlength="4"><br>
+            <label class="labelTitel" for="fullName">Full name *</label><br>
+            <input type="text" id="fullName" name="fullName" required><br>
+
+            <label class="labelTitel" for="accountName">Account name *</label><br>
+            <p class="finePrint">This name is shown to others</p>
+            <input type="text" id="accountName" name="accountName" required><br>
+
+            <label class="labelTitel" for="email" >Email address *</label>
+            <input type="email" id="email" name="email" required>
+
+            <label class="labelTitel" for="password">Password *</label><br>
+            <input type="password" id="password" name="password" minlength="4" required><br>
         </fieldset>
+      
+        <fieldset class="accountInfo">
+            <label class="labelTitel"for="birthdate">Birthdate *</label><br>
+            <input type="date" id="birthdate" name="birthdate"><br>
+        
+            <label class="labelTitel" for="gender">Gender</label><br>
+            <input type="radio" id="male" name="gender" value="male">
+            <label for="male">Male</label>
+            <input type="radio" id="female" name="gender" value="female">
+            <label for="female">Female</label>
+            <input type="radio" id="other" name="gender" value="other">
+            <label for="other">Other</label><br>
+        
+            <label class="labelTitel" for="placeResidence">Place of residence</label><br>
+            <input type="text" id="placeResidence" name="placeResidence"><br>
+
+            <label class="labelTitel" for="knowledge">Knowledge</label><br>
+            <input type="radio" id="amature" name="knowledge" value="amature">
+            <label for="amature">Amature</label>
+            <input type="radio" id="moderate" name="knowledge" value="moderate">
+            <label for="moderate">Moderate</label>
+            <input type="radio" id="expert" name="knowledge" value="expert">
+            <label for="expert">Expert</label><br>
+
+            <label class="labelTitel" for="about">You in one sentence</label><br>
+            <textarea id="about" name="about" rows="4" cols="50"></textarea>
+        </fieldset>
+
+      <fieldset class="accountMuseum">
+        <h2>Museum</h2>
+        <label class="labelTitel" for="location">Location</label><br>
+        <div class="containerLocation">
+        <input type="checkbox" id="drenthe" name="location" value="drenthe">
+        <label for="drenthe">Drenthe</label>
+        <input type="checkbox" id="flevoland" name="location" value="flevoland">
+        <label for="flevoland">Flevoland</label>
+        <input type="checkbox" id="friesland" name="location" value="friesland">
+        <label for="friesland">Friesland</label>
+        <input type="checkbox" id="gelderland" name="location" value="gelderland">
+        <label for="gelderland">Gelderland</label>
+        <input type="checkbox" id="groningen" name="location" value="groningen">
+        <label for="groningen">Groningen</label>
+        <input type="checkbox" id="limburg" name="location" value="limburg">
+        <label for="limburg">Limburg</label>
+        <input type="checkbox" id="noordBrabant" name="location" value="noordBrabant">
+        <label for="noordBrabant">Noord-Brabant</label>
+        <input type="checkbox" id="noordHolland" name="location" value="noordHolland">
+        <label for="noordHolland">Noord-Holland</label>
+        <input type="checkbox" id="overijssel" name="location" value="overijssel">
+        <label for="overijssel">Overijssel</label>
+        <input type="checkbox" id="utrecht" name="location" value="utrecht">
+        <label for="utrecht">Utrecht</label>
+        <input type="checkbox" id="zeeland" name="location" value="zeeland">
+        <label for="zeeland">Zeeland</label>
+        <input type="checkbox" id="zuidHolland" name="location" value="zuidHolland">
+        <label for="zuidHolland">Zuid-Holland</label>
+        </div>
+
+        <label class="labelTitel" for="category">Category</label><br>
+        <div class="containerCategory">
+        <input type="checkbox" id="art" name="category" value="art">
+        <label for="art">Art</label>
+        <input type="checkbox" id="history" name="category" value="history">
+        <label for="history">History</label>
+        <input type="checkbox" id="naturalHistory" name="category" value="naturalHistory">
+        <label for="naturalHistory">Natural history</label>
+        <input type="checkbox" id="science" name="category" value="science">
+        <label id="long" for="science">Industry, science and technology</label>
+        <input type="checkbox" id="ethography" name="category" value="ethography">
+        <label for="ethography">Ethnography</label>
+        </div>
+
+        <label class="labelTitel" for="goal">Goal</label><br>
+        <div class="containerGoal">
+        <input type="checkbox" id="fun" name="goal" value="fun">
+        <label for="fun">Fun</label>
+        <input type="checkbox" id="people" name="goal" value="people">
+        <label for="people">Meeting new people</label>
+        <input type="checkbox" id="knowledge" name="goal" value="knowledge">
+        <label for="knowledge">Knowledge</label>
+        <input type="checkbox" id="romance" name="goal" value="romance">
+        <label for="romance">Romance</label>
+        </div>
+      </fieldset>
+
+        <input class="button" type="submit" value="Submit">
+    </form>
+    <script>
+        let userData;
+    fetch('http://localhost:3000/profileview')
+      .then(response => response.json())
+      .then(function(data){
+          userData = data;
+          document.getElementById("fullName").value = userData.fullName;
+          document.getElementById("accountName").value = userData.accountName;
+          document.getElementById("email").value = userData.email;
+          document.getElementById("password").value = userData.password;
+          document.getElementById("birthdate").value = userData.birthdate;
+          document.getElementById("gender").value = userData.gender;
+          document.getElementById("placeResidence").value = userData.placeResidence;
+          document.getElementById("knowledge").value = userData.knowledge;
+          document.getElementById("about").value = userData.about;
+          document.getElementById("location").value = userData.location;
+          document.getElementById("category").value = userData.category;
+          document.getElementById("goal").value = userData.goal;
+        });
     
-          <input class="button" type="submit" value="Submit">
-          <input class="button" type="submit" value="Submit">
-      </form>  -->
+     
+    </script>
   </div>

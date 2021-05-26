@@ -3,18 +3,8 @@
 <head>
     <%- include('../partials/head'); %>
 </head>
-<script>
-    function getM(){
-const Http = new XMLHttpRequest();
-const url='localhost:3000/profileview';
-Http.open("GET", url);
-Http.send();
 
-Http.onreadystatechange = (e) => {
-console.log(Http.responseText)
-}}
-</script>
-<body onload="getM()">
+<body>
 
     <div class="mobile">
 
@@ -24,16 +14,6 @@ console.log(Http.responseText)
 
     <main>
         <%- include('../partials/view'); %>
-
-        <ul>
-            <% user.forEach(function(mascot) { %>
-              <li>
-                <strong><%= mascot.name %></strong>
-                representing <%= mascot.organization %>,
-                born <%= mascot.birth_year %>
-              </li>
-            <% }); %>
-          </ul>
     </main>
 
     <footer>

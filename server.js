@@ -58,7 +58,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 // Write the form data in the mongodb database
 app.post('/profileview', function(req, res) {
     var item = 
-        { fullName: req.body.fullName, accountName: req.body.accountName, password: req.body.password, birthdate: req.body.birthdate, gender: req.body.gender, 
+        { fullName: req.body.fullName, accountName: req.body.accountName, email: req.body.email, password: req.body.password, birthdate: req.body.birthdate, gender: req.body.gender, 
         placeResidence: req.body.placeResidence, knowledge: req.body.knowledge, about: req.body.about, location: req.body.location, 
         category: req.body.category, goal: req.body.goal};
     
@@ -89,10 +89,10 @@ app.get('/profileview', function routeHandeler(req, res) {
           if (err) throw err;
           res.send(result);
 
-          const user = result;
-          res.render('pages/profileview', {
-            user: user
-          });
+        //   const user = result;
+        //   res.render('pages/profileview', {
+        //     user: user
+        //   });
 
           db.close();
         });
