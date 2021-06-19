@@ -6,7 +6,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 dotenv.config();
-const port = 3000;
+const port = process.env.DB_USER;
 
 // Connection with Mongodb
 const MongoClient = require('mongodb').MongoClient;
