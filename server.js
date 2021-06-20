@@ -18,6 +18,9 @@ MongoClient.connect(url, function (err, db) {
   db.close();
 });
 
+// Makes is possible to get form information from another body
+app.use(bodyParser.urlencoded({ extended: true }));
+
 // Set the view engine to ejs
 app.set('view engine', 'ejs');
 
@@ -26,19 +29,21 @@ app.use(express.static('public'));
 
 // Define routes
 app.get('/', pageRegistration);
-app.get('/about', pageAbout);
+app.get('/dashboard', pageDashboard);
 app.get('/results', pageResults);
-app.get("/profileview'", pageProfileview);
+app.get("/update'", pageUpdate);
+app.get("/delete'", pageDelete);
+
 //app.get("*", error);
 
 // Registration page render
 function pageRegistration(req, res) {
-  res.render('pages/index');
+  res.render('pages/registerpage');
 }
 
 // About page render
-function pageAbout(req, res) {
-  res.render('pages/about');
+function pageHome(req, res) {
+  res.render('pages/index');
 }
 
 // Results page render
@@ -46,16 +51,35 @@ function pageResults(req, res) {
   res.render('pages/results');
 }
 
-// Profileview page render
-function pageProfileview(req, res) {
-  res.render('pages/profileview');
+// Update page render
+function pageUpdate(req, res) {
+  res.render('pages/update');
 }
 
-// Makes is possible to get form information from another body
-app.use(bodyParser.urlencoded({ extended: true }));
+// Delete page render
+function pageDelete(req, res) {
+  res.render('pages/delete');
+}
+
+// Dashboard page render
+function pageDashboard(req, res) {
+  MongoClient.connect((err, db) => {
+    if (err) throw err;
+
+    db.db('DatingApp2021')
+      .collection('user')
+      .findOne({ fullName: fullName })
+      .then(() => {
+        res.render('pages/dashboard', { fullName: fullName });
+        db.close();
+      });
+  });
+}
+
+app.post('/delete', handleDelete);
 
 // Write the form data in the mongodb database
-app.post('/profileview', function (req, res) {
+app.post('/dashboard', function (req, res) {
   const item = {
     fullName: req.body.fullName,
     accountName: req.body.accountName,
@@ -81,14 +105,14 @@ app.post('/profileview', function (req, res) {
     });
   });
 
-  res.render('pages/profileview');
+  res.render('pages/dashboard');
 });
 
 // app.get('/test', function routeHandler(req, res) {
 //     res.send('ok');
 // });
 
-app.get('/profileview', function routeHandeler(req, res) {
+app.get('/update', function routeHandeler(req, res) {
   MongoClient.connect(url, function (err, db) {
     if (err) throw err;
     const database = db.db('DatingApp2021');
@@ -107,13 +131,11 @@ app.get('/profileview', function routeHandeler(req, res) {
   });
 });
 
-// res.status(200).json("continue");
-// res.status(400).json("stop");
-
-// error page
-// function error(req, res) {
-//     res.status(404).render('pages/404');
-//   };
+function handleDelete(req, res) {
+  const deleteEmail = req.body.deleteEmail;
+  db.db('DatingApp2021').collection('user').deleteMany({ email: deleteEmail });
+  res.redirect('/');
+}
 
 // port of server
 app.listen(port, () => {

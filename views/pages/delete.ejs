@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../partials/head'); %>
+  </head>
+
+  <body>
+    <div class="mobile">
+      <header><%- include('../partials/header'); %></header>
+
+      <main>
+        <h1>Delete your profile</h1>
+
+        <form method="POST" action="/delete" id="gameform">
+          <fieldset>
+            <label for="deleteEmail">Enter your email</label>
+            <input type="email" id="email" name="deleteEmail" required />
+          </fieldset>
+
+          <input type="submit" value="delete" id="delete" />
+        </form>
+      </main>
+
+      <footer><%- include('../partials/footer'); %></footer>
+    </div>
+  </body>
+</html>

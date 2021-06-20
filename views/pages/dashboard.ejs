@@ -3,11 +3,16 @@
   <head>
     <%- include('../partials/head'); %>
   </head>
+
   <body>
     <div class="mobile">
+      <header><%- include('../partials/header'); %></header>
+
       <main>
-        <img class="homeimg" src="img/Matcheum_logo.png" alt="Matcheum" />
-        <a href="/registerpage">Register!</a>
+        <%- include('../partials/accountData'); %>
+
+        <a class="link" href="/update">Change your profile</a>
+        <a class="link" href="/results">Delete your profile</a>
       </main>
 
       <footer><%- include('../partials/footer'); %></footer>
