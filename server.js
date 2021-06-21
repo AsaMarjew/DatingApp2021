@@ -76,7 +76,20 @@ function pageDashboard(req, res) {
   });
 }
 
-app.post('/delete', handleDelete);
+// Request accountName
+function findAccountName(req, res) {
+  MongoClient.connect((err, db) => {
+    if (err) throw err;
+
+    db.db('DatingApp2021')
+      .collection('user')
+      .findOne({ accountName: accountName })
+      .then(() => {
+        res.render('pages/dashboard', { accountName: AccountName });
+        db.close();
+      });
+  });
+}
 
 // Write the form data in the mongodb database
 app.post('/dashboard', function (req, res) {
@@ -113,29 +126,77 @@ app.post('/dashboard', function (req, res) {
 // });
 
 app.get('/update', function routeHandeler(req, res) {
+  const item = {
+    fullName: req.body.fullName,
+    accountName: req.body.accountName,
+    email: req.body.email,
+    password: req.body.password,
+    birthdate: req.body.birthdate,
+    gender: req.body.gender,
+    placeResidence: req.body.placeResidence,
+    knowledge: req.body.knowledge,
+    about: req.body.about,
+    location: req.body.location,
+    category: req.body.category,
+    goal: req.body.goal,
+  };
+
   MongoClient.connect(url, function (err, db) {
     if (err) throw err;
     const database = db.db('DatingApp2021');
     //Find the first document  in the users collection:
-    database.collection('user').findOne({}, function (err, result) {
-      if (err) throw err;
-      res.send(result);
+    database.collection('user').updateOne(
+      { email: item.email },
+      {
+        $set: {
+          fullName: item.fullName,
+          accountName: item.accountName,
+          email: item.email,
+          password: item.password,
+          birthdate: item.birthdate,
+          gender: item.gender,
+          placeResidence: item.placeResidence,
+          knowledge: item.knowledge,
+          about: item.about,
+          location: item.location,
+          category: item.category,
+          goal: item.goal,
+        },
+      },
+      function (err, result) {
+        if (err) throw err;
+        console.log(result);
+        res.send(result);
 
-      //   const user = result;
-      //   res.render('pages/profileview', {
-      //     user: user
-      //   });
+        //   const user = result;
+        //   res.render('pages/profileview', {
+        //     user: user
+        //   });
 
-      db.close();
-    });
+        db.close();
+      }
+    );
   });
 });
 
-function handleDelete(req, res) {
-  const deleteEmail = req.body.deleteEmail;
-  db.db('DatingApp2021').collection('user').deleteMany({ email: deleteEmail });
-  res.redirect('/');
-}
+app.post('/delete', function routeHandeler(req, res) {
+  const item = { email: req.body.email };
+
+  MongoClient.connect(url, function (err, db) {
+    if (err) throw err;
+    const database = db.db('DatingApp2021');
+    //Find the first document  in the users collection:
+    database
+      .collection('user')
+      .deleteOne({ email: item.email }, function (err, result) {
+        if (err) throw err;
+        console.log(result);
+        res.send(result);
+
+        db.close();
+      });
+  });
+});
 
 // port of server
 app.listen(port, () => {
