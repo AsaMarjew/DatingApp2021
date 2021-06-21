@@ -18,6 +18,9 @@ MongoClient.connect(url, function (err, db) {
   db.close();
 });
 
+// Makes is possible to get form information from another body
+app.use(bodyParser.urlencoded({ extended: true }));
+
 // Set the view engine to ejs
 app.set('view engine', 'ejs');
 
@@ -26,19 +29,29 @@ app.use(express.static('public'));
 
 // Define routes
 app.get('/', pageRegistration);
-app.get('/about', pageAbout);
+app.get('/dashboard', pageDashboard);
 app.get('/results', pageResults);
-app.get("/profileview'", pageProfileview);
+app.get('/update', pageUpdate);
+app.get('/delete', pageDelete);
+
+app.get('/alertUpdate', (req, res) => {
+  res.render('pages/alertUpdate');
+});
+
+app.get('/alertDelete', (req, res) => {
+  res.render('pages/alertDelete');
+});
+
 //app.get("*", error);
 
 // Registration page render
 function pageRegistration(req, res) {
-  res.render('pages/index');
+  res.render('pages/registerpage');
 }
 
 // About page render
-function pageAbout(req, res) {
-  res.render('pages/about');
+function pageHome(req, res) {
+  res.render('pages/index');
 }
 
 // Results page render
@@ -46,16 +59,48 @@ function pageResults(req, res) {
   res.render('pages/results');
 }
 
-// Profileview page render
-function pageProfileview(req, res) {
-  res.render('pages/profileview');
+// Update page render
+function pageUpdate(req, res) {
+  res.render('pages/update');
 }
 
-// Makes is possible to get form information from another body
-app.use(bodyParser.urlencoded({ extended: true }));
+// Delete page render
+function pageDelete(req, res) {
+  res.render('pages/delete');
+}
+
+// Dashboard page render
+function pageDashboard(req, res) {
+  MongoClient.connect((err, db) => {
+    if (err) throw err;
+
+    db.db('DatingApp2021')
+      .collection('user')
+      .findOne({ fullName: fullName })
+      .then(() => {
+        res.render('pages/dashboard', { fullName: fullName });
+        db.close();
+      });
+  });
+}
+
+// Request accountName
+function findAccountName(req, res) {
+  MongoClient.connect((err, db) => {
+    if (err) throw err;
+
+    db.db('DatingApp2021')
+      .collection('user')
+      .findOne({ accountName: accountName })
+      .then(() => {
+        res.render('pages/dashboard', { accountName: AccountName });
+        db.close();
+      });
+  });
+}
 
 // Write the form data in the mongodb database
-app.post('/profileview', function (req, res) {
+app.post('/dashboard', function (req, res) {
   const item = {
     fullName: req.body.fullName,
     accountName: req.body.accountName,
@@ -75,45 +120,75 @@ app.post('/profileview', function (req, res) {
     if (err) throw err;
     var database = db.db('DatingApp2021');
     database.collection('user').insertOne(item, function (err, res) {
-      if (err) throw err;
-      console.log('1 document inserted');
       db.close();
     });
   });
 
-  res.render('pages/profileview');
+  res.render('pages/dashboard');
 });
 
-// app.get('/test', function routeHandler(req, res) {
-//     res.send('ok');
-// });
+app.post('/update', function pageUpdate(req, res) {
+  const item = {
+    fullName: req.body.updateFullName,
+    accountName: req.body.updateAccountName,
+    email: req.body.updateEmail,
+    password: req.body.updatePassword,
+    birthdate: req.body.updateBirthdate,
+    gender: req.body.updateGender,
+    placeResidence: req.body.updatePlaceResidence,
+    knowledge: req.body.updateKnowledge,
+    about: req.body.updateAbout,
+    location: req.body.updateLocation,
+    category: req.body.updateCategory,
+    goal: req.body.updateGoal,
+  };
 
-app.get('/profileview', function routeHandeler(req, res) {
+  MongoClient.connect(url, function (err, db) {
+    if (err) throw err;
+
+    const collection = db.db('DatingApp2021').collection('user');
+    collection.findOneAndUpdate(
+      { email: item.email },
+      {
+        $set: {
+          fullName: item.fullName,
+          accountName: item.accountName,
+          email: item.email,
+          password: item.password,
+          birthdate: item.birthdate,
+          gender: item.gender,
+          placeResidence: item.placeResidence,
+          knowledge: item.knowledge,
+          about: item.about,
+          location: item.location,
+          category: item.category,
+          goal: item.goal,
+        },
+      }
+    );
+    console.log(item.email);
+    db.close();
+    res.render('pages/alertUpdate');
+  });
+});
+
+app.post('/delete', function routeHandeler(req, res) {
+  const item = { email: req.body.deleteEmail };
+  console.log(item);
   MongoClient.connect(url, function (err, db) {
     if (err) throw err;
     const database = db.db('DatingApp2021');
     //Find the first document  in the users collection:
-    database.collection('user').findOne({}, function (err, result) {
-      if (err) throw err;
-      res.send(result);
-
-      //   const user = result;
-      //   res.render('pages/profileview', {
-      //     user: user
-      //   });
-
-      db.close();
-    });
+    database
+      .collection('user')
+      .deleteOne({ email: item.email }, function (err, result) {
+        if (err) throw err;
+        console.log(err);
+        db.close();
+        res.render('pages/alertDelete');
+      });
   });
 });
-
-// res.status(200).json("continue");
-// res.status(400).json("stop");
-
-// error page
-// function error(req, res) {
-//     res.status(404).render('pages/404');
-//   };
 
 // port of server
 app.listen(port, () => {
