@@ -69,6 +69,27 @@ h2 {
   margin-bottom: 40px;
 }
 
+.link {
+  color: black;
+  text-decoration: none;
+  display: block;
+  margin: 100px 23% 50px;
+  font-size: 1.5em;
+  text-align: center;
+  border: 2px solid black;
+  width: 50%;
+  height: 30px;
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+  border-radius: 2px;
+  background-color: white;
+  border-color: rgb(184, 184, 184);
+}
+
+.link:hover {
+  background-color: #4996e8;
+  color: white;
+}
+
 form {
   text-align: center;
 }
