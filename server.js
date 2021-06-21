@@ -31,8 +31,8 @@ app.use(express.static('public'));
 app.get('/', pageRegistration);
 app.get('/dashboard', pageDashboard);
 app.get('/results', pageResults);
-app.get("/update'", pageUpdate);
-app.get("/delete'", pageDelete);
+app.get('/update', pageUpdate);
+app.get('/delete', pageDelete);
 
 //app.get("*", error);
 
@@ -112,8 +112,6 @@ app.post('/dashboard', function (req, res) {
     if (err) throw err;
     var database = db.db('DatingApp2021');
     database.collection('user').insertOne(item, function (err, res) {
-      if (err) throw err;
-      console.log('1 document inserted');
       db.close();
     });
   });
@@ -121,31 +119,27 @@ app.post('/dashboard', function (req, res) {
   res.render('pages/dashboard');
 });
 
-// app.get('/test', function routeHandler(req, res) {
-//     res.send('ok');
-// });
-
-app.get('/update', function routeHandeler(req, res) {
+app.post('/update', function pageUpdate(req, res) {
   const item = {
-    fullName: req.body.fullName,
-    accountName: req.body.accountName,
-    email: req.body.email,
-    password: req.body.password,
-    birthdate: req.body.birthdate,
-    gender: req.body.gender,
-    placeResidence: req.body.placeResidence,
-    knowledge: req.body.knowledge,
-    about: req.body.about,
-    location: req.body.location,
-    category: req.body.category,
-    goal: req.body.goal,
+    fullName: req.body.updateFullName,
+    accountName: req.body.updateAccountName,
+    email: req.body.updateEmail,
+    password: req.body.updatePassword,
+    birthdate: req.body.updateBirthdate,
+    gender: req.body.updateGender,
+    placeResidence: req.body.updatePlaceResidence,
+    knowledge: req.body.updateKnowledge,
+    about: req.body.updateAbout,
+    location: req.body.updateLocation,
+    category: req.body.updateCategory,
+    goal: req.body.updateGoal,
   };
 
   MongoClient.connect(url, function (err, db) {
     if (err) throw err;
-    const database = db.db('DatingApp2021');
-    //Find the first document  in the users collection:
-    database.collection('user').updateOne(
+
+    const collection = db.db('DatingApp2021').collection('user');
+    collection.findOneAndUpdate(
       { email: item.email },
       {
         $set: {
@@ -162,26 +156,17 @@ app.get('/update', function routeHandeler(req, res) {
           category: item.category,
           goal: item.goal,
         },
-      },
-      function (err, result) {
-        if (err) throw err;
-        console.log(result);
-        res.send(result);
-
-        //   const user = result;
-        //   res.render('pages/profileview', {
-        //     user: user
-        //   });
-
-        db.close();
       }
     );
+    console.log(item.email);
+    db.close();
+    res.render('pages/results');
   });
 });
 
 app.post('/delete', function routeHandeler(req, res) {
-  const item = { email: req.body.email };
-
+  const item = { email: req.body.deleteEmail };
+  console.log(item);
   MongoClient.connect(url, function (err, db) {
     if (err) throw err;
     const database = db.db('DatingApp2021');
