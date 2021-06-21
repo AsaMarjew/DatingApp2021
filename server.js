@@ -34,6 +34,14 @@ app.get('/results', pageResults);
 app.get('/update', pageUpdate);
 app.get('/delete', pageDelete);
 
+app.get('/alertUpdate', (req, res) => {
+  res.render('pages/alertUpdate');
+});
+
+app.get('/alertDelete', (req, res) => {
+  res.render('pages/alertDelete');
+});
+
 //app.get("*", error);
 
 // Registration page render
@@ -160,7 +168,7 @@ app.post('/update', function pageUpdate(req, res) {
     );
     console.log(item.email);
     db.close();
-    res.render('pages/results');
+    res.render('pages/alertUpdate');
   });
 });
 
@@ -175,10 +183,9 @@ app.post('/delete', function routeHandeler(req, res) {
       .collection('user')
       .deleteOne({ email: item.email }, function (err, result) {
         if (err) throw err;
-        console.log(result);
-        res.send(result);
-
+        console.log(err);
         db.close();
+        res.render('pages/alertDelete');
       });
   });
 });
