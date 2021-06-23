@@ -3,7 +3,7 @@
     <h1>Profile setup</h1>
   </div>
 
-  <form action="/dashboard" method="post">
+  <form action="/register" method="POST">
     <fieldset class="account">
       <label class="labelTitel" for="fullName">Full name *</label><br />
       <input type="text" id="fullName" name="fullName" required /><br />
@@ -162,4 +162,9 @@
 
     <input class="button" type="submit" value="Submit" />
   </form>
+
+  <!-- use script tag to access ejs data and local storage -->
+  <script>
+    localStorage.setItem('Accoutname', accountName);
+  </script>
 </div>

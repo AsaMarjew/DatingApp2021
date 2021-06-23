@@ -1,12 +1,16 @@
 // Asa Marjew Tech 6
 
-// Loading the things we need
+/*---------------------------
+    Loading in the things we need
+---------------------------*/
+
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 dotenv.config();
 const port = process.env.PORT || 3000;
+let user;
 
 // Connection with Mongodb
 const MongoClient = require('mongodb').MongoClient;
@@ -27,80 +31,81 @@ app.set('view engine', 'ejs');
 // Public folder location
 app.use(express.static('public'));
 
-// Define routes
-app.get('/', pageRegistration);
-app.get('/dashboard', pageDashboard);
-app.get('/results', pageResults);
-app.get('/update', pageUpdate);
-app.get('/delete', pageDelete);
+/*---------------------------
+        Render routes
+---------------------------*/
 
+// Render Registration page in home route
+app.get('/', (req, res) => {
+  res.render('pages/registerpage');
+});
+
+// Render Registration alert page in alertRegister route
+app.get('/alertRegister', (req, res) => {
+  res.render('pages/alertRegister');
+});
+
+// Render Dashboard page in dashboard route
+app.get('/dashboard', renderDashboard);
+
+// Render Results page in results route
+app.get('/results', (req, res) => {
+  res.render('pages/results');
+});
+
+// Render Update page in update route
+app.get('/update', (req, res) => {
+  res.render('pages/update');
+});
+
+// Render Delete page in delete route
+app.get('/delete', (req, res) => {
+  res.render('pages/delete');
+});
+
+// Render Update alert page in alertUpdate route
 app.get('/alertUpdate', (req, res) => {
   res.render('pages/alertUpdate');
 });
 
+// Render Delete alert page in alertDelete route
 app.get('/alertDelete', (req, res) => {
   res.render('pages/alertDelete');
 });
 
-//app.get("*", error);
+/*---------------------------
+        Handle route
+---------------------------*/
 
-// Registration page render
-function pageRegistration(req, res) {
-  res.render('pages/registerpage');
-}
+// Handle register with handleRegister function
+app.post('/register', handleRegister);
 
-// About page render
-function pageHome(req, res) {
-  res.render('pages/index');
-}
+// Handle update with handleUpdate function
+app.post('/update', handleUpdate);
 
-// Results page render
-function pageResults(req, res) {
-  res.render('pages/results');
-}
+// Handle delete with handleDelete function
+app.post('/delete', handleDelete);
 
-// Update page render
-function pageUpdate(req, res) {
-  res.render('pages/update');
-}
+/*---------------------------
+    GET render functions
+---------------------------*/
 
-// Delete page render
-function pageDelete(req, res) {
-  res.render('pages/delete');
-}
-
-// Dashboard page render
-function pageDashboard(req, res) {
-  MongoClient.connect((err, db) => {
-    if (err) throw err;
-
-    db.db('DatingApp2021')
-      .collection('user')
-      .findOne({ fullName: fullName })
-      .then(() => {
-        res.render('pages/dashboard', { fullName: fullName });
-        db.close();
-      });
+// Sending the user name to the dashbboard page
+// using bodyparser
+function renderDashboard(req, res) {
+  res.render('pages/dashboard', {
+    user: user,
   });
+  res.render('pages/dashboard');
 }
 
-// Request accountName
-function findAccountName(req, res) {
-  MongoClient.connect((err, db) => {
-    if (err) throw err;
+/*---------------------------
+    POST handle functions
+---------------------------*/
 
-    db.db('DatingApp2021')
-      .collection('user')
-      .findOne({ accountName: accountName })
-      .then(() => {
-        res.render('pages/dashboard', { accountName: AccountName });
-        db.close();
-      });
-  });
-}
-
-// Write the form data in the mongodb database
-app.post('/dashboard', function (req, res) {
+// Getting the form data with bodyparser and write the data in
+// a document in the mongodb database
+function handleRegister(req, res) {
   const item = {
     fullName: req.body.fullName,
     accountName: req.body.accountName,
@@ -116,18 +121,21 @@ app.post('/dashboard', function (req, res) {
     goal: req.body.goal,
   };
 
+  user = req.body.accountName;
+
   MongoClient.connect(url, function (err, db) {
     if (err) throw err;
-    var database = db.db('DatingApp2021');
+    const database = db.db('DatingApp2021');
     database.collection('user').insertOne(item, function (err, res) {
       db.close();
     });
   });
+  res.render('pages/alertRegister');
+}
 
-  res.render('pages/dashboard');
-});
-
-app.post('/update', function pageUpdate(req, res) {
+// Getting the form data from Update form with bodyparser and
+// update an excisting document with findOneAndUpdate
+function handleUpdate(req, res) {
   const item = {
     fullName: req.body.updateFullName,
     accountName: req.body.updateAccountName,
@@ -142,6 +150,8 @@ app.post('/update', function pageUpdate(req, res) {
     category: req.body.updateCategory,
     goal: req.body.updateGoal,
   };
+
+  user = req.body.updateAccountName;
 
   MongoClient.connect(url, function (err, db) {
     if (err) throw err;
@@ -166,15 +176,15 @@ app.post('/update', function pageUpdate(req, res) {
         },
       }
     );
-    console.log(item.email);
     db.close();
     res.render('pages/alertUpdate');
   });
-});
+}
 
-app.post('/delete', function routeHandeler(req, res) {
+// Getting deleteEmail with bodyparser and delete this
+// excisting document from the database
+function handleDelete(req, res) {
   const item = { email: req.body.deleteEmail };
-  console.log(item);
   MongoClient.connect(url, function (err, db) {
     if (err) throw err;
     const database = db.db('DatingApp2021');
@@ -188,9 +198,12 @@ app.post('/delete', function routeHandeler(req, res) {
         res.render('pages/alertDelete');
       });
   });
-});
+}
 
-// port of server
+/*---------------------------
+        Server port
+---------------------------*/
+
 app.listen(port, () => {
   console.log('Server running on http://localhost:3000');
 });
