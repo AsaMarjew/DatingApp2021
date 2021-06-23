@@ -10,7 +10,7 @@ const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 dotenv.config();
 const port = process.env.PORT || 3000;
-let user;
+const user;
 
 // Connection with Mongodb
 const MongoClient = require('mongodb').MongoClient;
