@@ -16,6 +16,14 @@ body {
   background-color: #fffcf8;
 }
 
+.homeimg {
+  width: 400px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 150px 0px 100px 0px;
+}
+
 .navBar ul {
   padding: 0;
   background-color: white;

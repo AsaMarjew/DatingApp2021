@@ -35,8 +35,13 @@ app.use(express.static('public'));
         Render routes
 ---------------------------*/
 
-// Render Registration page in home route
+// Render Index page in home route
 app.get('/', (req, res) => {
+  res.render('pages/index');
+});
+
+// Render Registration page in registerpage route
+app.get('/registerpage', (req, res) => {
   res.render('pages/registerpage');
 });
 
